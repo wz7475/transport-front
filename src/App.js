@@ -1,25 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useState, useEffect} from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [data, setData] = useState([{}]);
+
+    useEffect(() => {
+        fetch("/timetable_json")
+            .then((res) => res.json())
+            .then((data) => {
+                setData(data);
+
+                console.log(data);
+            });
+    }, []);
+
+    return (
+        <div id="timetable">
+            {typeof data === "undefined" ? (
+                <p>Loading ...</p>
+            ) : (
+                // data.forEach((position) => <p>{position[0]}</p>)
+                // <p>{data[0][0]}</p>
+                data.map((position, i) =>
+                    <p key={i}>{position[0]} {position[1]} {position[2]}</p>)
+            )}
+        </div>
+    );
+
 }
 
 export default App;
