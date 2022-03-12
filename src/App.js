@@ -5,7 +5,7 @@ function App() {
     const [data, setData] = useState([{}]);
 
     useEffect(() => {
-        fetch("/timetable_json")
+        fetch("https://timetable-warsaw.herokuapp.com/timetable_json")
             .then((res) => res.json())
             .then((data) => {
                 setData(data);
